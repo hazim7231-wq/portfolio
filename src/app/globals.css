@@ -29,6 +29,17 @@
   --cream: #C0C0C0;
   --indigo: #264653;
   --indigo-subtle: #1a3a45;
+  
+  /* Golden ratio spacing scale */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1.25rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3.25rem;
+  --spacing-2xl: 5.25rem;
+  
+  /* Letter spacing for uppercase labels */
+  --letter-spacing-caps: 0.08em;
 }
 
 * {
@@ -60,8 +71,24 @@ body {
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.015;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Refined background grid for all sections */
+.background-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(90deg, var(--silver-subtle) 0.5px, transparent 0.5px),
+    linear-gradient(var(--silver-subtle) 0.5px, transparent 0.5px);
+  background-size: 80px 80px;
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Minimal border with subtle hover */
@@ -129,13 +156,15 @@ body {
 /* Case study preview styling with indigo accent on hover */
 .case-study-preview {
   border-top: 1px solid var(--silver-subtle);
-  padding: 3rem 0;
+  border-left: 2px solid transparent;
+  padding: 3rem 0 3rem 1.5rem;
   transition: all 0.5s ease;
 }
 
 .case-study-preview:hover {
   border-top-color: var(--indigo);
-  padding-left: 0.5rem;
+  border-left-color: var(--indigo);
+  padding-left: 1.5rem;
 }
 
 .case-study-preview:hover h3,
@@ -143,15 +172,20 @@ body {
   color: var(--indigo);
 }
 
+.case-study-preview:hover + .case-study-preview {
+  opacity: 0.6;
+}
+
 /* Typography hierarchy */
 .heading-display {
-  font-weight: 400;
+  font-weight: 350;
   letter-spacing: -0.03em;
   line-height: 1.1;
+  font-size-adjust: 0.5;
 }
 
 .heading-section {
-  font-weight: 400;
+  font-weight: 350;
   letter-spacing: -0.02em;
   line-height: 1.2;
 }
@@ -164,6 +198,32 @@ body {
 
 .text-muted {
   color: var(--silver-muted);
+}
+
+/* Label uppercase for consistent labeling */
+.label-uppercase {
+  font-size: 0.65rem;
+  letter-spacing: var(--letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--silver-muted);
+  font-weight: 400;
+}
+
+/* Styled tech tags with subtle background */
+.tech-tag {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--silver-subtle);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--silver-muted);
+  transition: all 0.4s ease;
+}
+
+.tech-tag:hover {
+  border-color: var(--indigo);
+  color: var(--indigo);
+  background: rgba(38, 70, 83, 0.1);
 }
 
 /* Minimal button with indigo accent */
@@ -191,11 +251,11 @@ body {
   width: 15%;
   height: 100%;
   pointer-events: none;
-  opacity: 0.06;
+  opacity: 0.12;
   background-image: 
-    linear-gradient(to right, var(--silver-subtle) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--silver-subtle) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(to right, var(--silver-subtle) 0.75px, transparent 0.75px),
+    linear-gradient(to bottom, var(--silver-subtle) 0.75px, transparent 0.75px);
+  background-size: 60px 60px;
 }
 
 /* Structural line elements - inspired by shoji screens */
@@ -203,24 +263,47 @@ body {
   position: absolute;
   top: 0;
   height: 100%;
-  width: 1px;
+  width: 1.5px;
   background: linear-gradient(to bottom, transparent, var(--silver-subtle) 10%, var(--silver-subtle) 90%, transparent);
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .structural-line-horizontal {
   position: absolute;
   left: 0;
   width: 100%;
-  height: 1px;
+  height: 1.5px;
   background: linear-gradient(to right, transparent, var(--silver-subtle) 10%, var(--silver-subtle) 90%, transparent);
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 /* Indigo accent line */
 .indigo-accent {
-  width: 1px;
+  width: 2px;
   height: 60px;
   background: var(--indigo);
-  opacity: 0.8;
+  opacity: 1;
+}
+
+/* Editorial section divider with gradient fade */
+.section-divider {
+  width: 100%;
+  height: 1.5px;
+  background: linear-gradient(to right, 
+    transparent 0%, 
+    var(--silver-subtle) 15%, 
+    var(--silver-subtle) 85%, 
+    transparent 100%);
+  margin: 3rem 0;
+}
+
+/* Subtle dotted divider for variety */
+.section-divider-dotted {
+  width: 100%;
+  height: 1px;
+  background-image: 
+    linear-gradient(to right, var(--silver-subtle) 1px, transparent 1px);
+  background-size: 12px 1px;
+  background-repeat: repeat-x;
+  margin: 3rem 0;
 }
