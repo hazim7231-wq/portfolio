@@ -8,10 +8,10 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 80,
+    damping: 40,
     restDelta: 0.001
   });
   
@@ -90,43 +90,43 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--japanese-charcoal)]">
-      {/* Scroll Progress Bar */}
+    <div className="min-h-screen bg-[var(--charcoal)]">
+      {/* Subtle noise texture */}
+      <div className="noise-texture" />
+      {/* Scroll Progress Bar - Minimal */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-[var(--japanese-silver)] z-50 origin-left"
+        className="fixed top-0 left-0 right-0 h-px bg-[var(--silver-subtle)] z-50 origin-left"
         style={{ scaleX }}
       />
       
-      {/* Decorative Lines */}
+      {/* Decorative Lines - Minimal */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-0 left-0 w-full h-px bg-[var(--japanese-silver)] opacity-20" />
-        <div className="absolute bottom-0 left-0 w-full h-px bg-[var(--japanese-silver)] opacity-20" />
-        <div className="absolute top-0 left-0 w-px h-full bg-[var(--japanese-silver)] opacity-20" />
-        <div className="absolute top-0 right-0 w-px h-full bg-[var(--japanese-silver)] opacity-20" />
+        <div className="absolute top-0 left-0 w-full h-px bg-[var(--silver-subtle)] opacity-30" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-[var(--silver-subtle)] opacity-30" />
       </div>
 
-      {/* Navigation */}
+      {/* Navigation - Minimal */}
       <motion.header 
         style={{ opacity }}
-        className="fixed top-0 left-0 right-0 z-50 bg-[var(--japanese-charcoal)]/90 backdrop-blur-sm border-b border-[var(--japanese-silver)]/20"
+        className="fixed top-0 left-0 right-0 z-50 bg-[var(--charcoal)]/95 backdrop-blur-sm border-b border-[var(--silver-subtle)]"
       >
-        <nav className="max-w-6xl mx-auto px-8 py-6 flex items-center justify-between">
+        <nav className="max-w-6xl mx-auto px-8 py-8 flex items-center justify-between">
           <motion.button
             onClick={() => scrollToSection('hero')}
-            className="text-xl font-semibold tracking-widest text-[var(--japanese-cream)]"
-            whileHover={{ scale: 1.05 }}
+            className="text-sm font-medium tracking-widest text-[var(--cream)] nav-link"
+            whileHover={{ scale: 1.005 }}
           >
             林
           </motion.button>
-          <div className="flex items-center gap-12">
+          <div className="flex items-center gap-16">
             {['Work', 'About', 'Contact'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item.toLowerCase())}
-                className={`text-sm font-medium tracking-wide transition-colors ${
+                className={`text-xs font-medium tracking-widest uppercase transition-colors nav-link ${
                   activeSection === item.toLowerCase() 
-                    ? 'text-[var(--japanese-silver)]' 
-                    : 'text-[var(--japanese-cream)] hover:text-[var(--japanese-silver)]'
+                    ? 'text-[var(--indigo)] active' 
+                    : 'text-[var(--cream)] hover:text-[var(--indigo)]'
                 }`}
               >
                 {item}
@@ -136,247 +136,229 @@ export default function Home() {
         </nav>
       </motion.header>
 
-      {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center px-8 pt-24 relative overflow-hidden">
-        {/* Japanese House Background Effect */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--japanese-charcoal)] via-[var(--japanese-charcoal)]/95 to-[var(--japanese-charcoal)]" />
-          <div className="absolute inset-0 japanese-pattern opacity-30" />
-          {/* Decorative vertical lines */}
-          <div className="absolute left-1/4 top-0 bottom-0 w-px bg-[var(--japanese-silver)] opacity-10" />
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[var(--japanese-silver)] opacity-10" />
-          <div className="absolute left-3/4 top-0 bottom-0 w-px bg-[var(--japanese-silver)] opacity-10" />
-        </div>
-
-        <div className="max-w-5xl mx-auto relative z-10">
+      {/* Hero Section - Minimal with increased whitespace */}
+      <section id="hero" className="min-h-screen flex items-center justify-center px-8 pt-32 relative">
+        {/* Vertical lattice pattern - kumiko-inspired */}
+        <div className="lattice-pattern" />
+        
+        {/* Structural line elements */}
+        <div className="structural-line-vertical left-8" />
+        <div className="structural-line-vertical right-8" />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
             className="text-center"
           >
-            {/* Decorative top line */}
-            <div className="w-32 h-px bg-[var(--japanese-silver)] mx-auto mb-12" />
+            {/* Indigo accent line */}
+            <div className="indigo-accent mx-auto mb-16" />
             
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tight mb-6 text-[var(--japanese-cream)]">
-               Hazim
+            <h1 className="heading-display text-5xl md:text-7xl mb-8 text-[var(--cream)]">
+              Hazim
               <br />
-              <span className="text-[var(--japanese-silver)]">Syukur</span>
+              <span className="text-[var(--indigo)]">Syukur</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-[var(--japanese-cream)] leading-relaxed mb-4 tracking-wide">
+            <p className="text-base text-[var(--silver-muted)] leading-relaxed mb-6 tracking-wide uppercase">
               Full-Stack Developer
             </p>
             
-            <p className="text-lg text-[var(--japanese-cream)] leading-relaxed mb-12 max-w-2xl mx-auto">
+            <p className="text-sm text-[var(--silver-muted)] leading-relaxed mb-16 max-w-xl mx-auto">
               Building scalable web applications with React, Node.js, and PostgreSQL
             </p>
             
             <motion.div 
-              className="flex flex-col sm:flex-row gap-6 justify-center"
-              initial={{ opacity: 0, y: 30 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.5, duration: 1 }}
             >
               <motion.button
                 onClick={() => scrollToSection('projects')}
-                className="px-10 py-4 bg-[var(--japanese-silver)] text-black font-medium tracking-wide hover:bg-[var(--japanese-silver)]/90 transition-colors flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="button-minimal flex items-center justify-center gap-3"
+                whileHover={{ scale: 1.005 }}
+                whileTap={{ scale: 0.995 }}
               >
                 View Work
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3 h-3" />
               </motion.button>
               <motion.button
                 onClick={() => scrollToSection('contact')}
-                className="px-10 py-4 border-2 border-[var(--japanese-cream)] text-[var(--japanese-cream)] font-medium tracking-wide hover:bg-[var(--japanese-cream)] hover:text-[var(--japanese-charcoal)] transition-colors flex items-center justify-center"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="button-minimal"
+                whileHover={{ scale: 1.005 }}
+                whileTap={{ scale: 0.995 }}
               >
                 Contact
               </motion.button>
             </motion.div>
 
-            {/* Decorative bottom line */}
-            <div className="w-32 h-px bg-[var(--japanese-silver)] mx-auto mt-12" />
+            {/* Editorial divider */}
+            <div className="editorial-divider mt-16" />
           </motion.div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-24 px-8 relative">
-        <div className="max-w-4xl mx-auto">
+      {/* About Section - Minimal editorial layout */}
+      <section id="about" className="py-32 px-8 relative">
+        {/* Structural line element */}
+        <div className="structural-line-horizontal top-0" />
+        
+        <div className="max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="japanese-border p-12 bg-[var(--japanese-secondary)]/50"
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8 text-[var(--japanese-cream)]">
-              About Me
+            <h2 className="heading-section text-4xl md:text-5xl mb-12 text-[var(--cream)]">
+              About
             </h2>
             
-            <div className="space-y-6 text-[var(--japanese-cream)] leading-relaxed">
-              <p className="text-lg">
+            <div className="space-y-8 text-[var(--silver-muted)] leading-relaxed">
+              <p className="text-base">
                 Computer Science graduate with practical experience in full-stack and backend development. I specialize in building scalable web applications using React, Node.js, and PostgreSQL.
               </p>
               
-              <p>
+              <p className="text-base">
                 At Exverses Enterprise, I worked as the sole developer on a multi-tenant VR training analytics platform. I designed and deployed production-ready systems, including role-based dashboards and real-time telemetry integration with Unreal Engine 5.
               </p>
               
-              <p>
+              <p className="text-base">
                 Strong in RESTful API development, system integration, and cloud deployment. I'm seeking opportunities in software engineering roles, including full-stack, backend, or related application development positions.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 pt-8 border-t border-[var(--japanese-silver)]/30">
-              <div className="text-center hover-lift cursor-pointer">
-                <MapPin className="w-6 h-6 text-[var(--japanese-silver)] mx-auto mb-2 hover-scale" />
-                <p className="font-semibold text-[var(--japanese-cream)]">Location</p>
-                <p className="text-sm text-[var(--japanese-cream)]">Kuala Lumpur, Malaysia</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-20 pt-12 border-t border-[var(--silver-subtle)]">
+              <div className="text-center">
+                <MapPin className="w-5 h-5 text-[var(--silver)] mx-auto mb-3" />
+                <p className="text-xs font-medium tracking-widest uppercase text-[var(--cream)] mb-1">Location</p>
+                <p className="text-sm text-[var(--silver-muted)]">Kuala Lumpur, Malaysia</p>
               </div>
-              <div className="text-center hover-lift cursor-pointer">
-                <GraduationCap className="w-6 h-6 text-[var(--japanese-silver)] mx-auto mb-2 hover-scale" />
-                <p className="font-semibold text-[var(--japanese-cream)]">Education</p>
-                <p className="text-sm text-[var(--japanese-cream)]">BSc Computer Science</p>
-                <p className="text-sm text-[var(--japanese-cream)]">CGPA 3.71</p>
+              <div className="text-center">
+                <GraduationCap className="w-5 h-5 text-[var(--silver)] mx-auto mb-3" />
+                <p className="text-xs font-medium tracking-widest uppercase text-[var(--cream)] mb-1">Education</p>
+                <p className="text-sm text-[var(--silver-muted)]">BSc Computer Science</p>
+                <p className="text-sm text-[var(--silver-muted)]">CGPA 3.71</p>
               </div>
-              <div className="text-center hover-lift cursor-pointer">
-                <Award className="w-6 h-6 text-[var(--japanese-silver)] mx-auto mb-2 hover-scale" />
-                <p className="font-semibold text-[var(--japanese-cream)]">Achievement</p>
-                <p className="text-sm text-[var(--japanese-cream)]">Dean's List</p>
-                <p className="text-sm text-[var(--japanese-cream)]">6/6 Semesters</p>
+              <div className="text-center">
+                <Award className="w-5 h-5 text-[var(--silver)] mx-auto mb-3" />
+                <p className="text-xs font-medium tracking-widest uppercase text-[var(--cream)] mb-1">Achievement</p>
+                <p className="text-sm text-[var(--silver-muted)]">Dean's List</p>
+                <p className="text-sm text-[var(--silver-muted)]">6/6 Semesters</p>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Experience Section */}
-      <section id="experience" className="py-24 px-8 bg-[var(--japanese-secondary)]/30 relative">
-        <div className="max-w-4xl mx-auto">
+      {/* Experience Section - Editorial layout */}
+      <section id="experience" className="py-32 px-8 relative">
+        {/* Structural line element */}
+        <div className="structural-line-horizontal top-0" />
+        
+        <div className="max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="mb-12"
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-[var(--japanese-cream)]">
+            <h2 className="heading-section text-4xl md:text-5xl mb-12 text-[var(--cream)]">
               Experience
             </h2>
-            <div className="w-24 h-1 bg-[var(--japanese-silver)]" />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="japanese-border p-8 bg-[var(--japanese-secondary)]/50"
-          >
-            <div className="flex items-start gap-4 mb-6">
-              <Briefcase className="w-6 h-6 text-[var(--japanese-silver)] flex-shrink-0 mt-1" />
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-[var(--japanese-cream)] mb-2">
-                  Full-Stack Developer Intern
-                </h3>
-                <p className="text-[var(--japanese-silver)] font-medium mb-2">
-                  Exverses Enterprise
-                </p>
-                <div className="flex items-center gap-2 text-sm text-[var(--japanese-cream)] mb-6">
-                  <Calendar className="w-4 h-4" />
-                  Sept 2025 – Feb 2026
+            
+            <div className="border-t border-[var(--silver-subtle)] pt-12">
+              <div className="mb-12">
+                <div className="flex items-center gap-3 mb-4">
+                  <Briefcase className="w-4 h-4 text-[var(--silver)]" />
+                  <p className="text-xs font-medium tracking-widest uppercase text-[var(--silver-muted)]">
+                    Sept 2025 – Feb 2026
+                  </p>
                 </div>
                 
-                <ul className="space-y-3 text-[var(--japanese-cream)]">
-                  <li className="flex items-start gap-3">
-                    <span className="w-2 h-2 bg-[var(--japanese-silver)] rounded-full mt-2 flex-shrink-0" />
+                <h3 className="text-2xl font-medium text-[var(--cream)] mb-2">
+                  Full-Stack Developer Intern
+                </h3>
+                <p className="text-sm text-[var(--silver-muted)] mb-8">
+                  Exverses Enterprise
+                </p>
+                
+                <div className="space-y-4 text-[var(--silver-muted)] leading-relaxed">
+                  <p className="text-sm">
                     Sole developer responsible for designing and building the company's multi-tenant VR training and analytics platform
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-2 h-2 bg-[var(--japanese-silver)] rounded-full mt-2 flex-shrink-0" />
+                  </p>
+                  <p className="text-sm">
                     Developed and maintained full-stack web applications using React, Node.js (Express), and Supabase PostgreSQL
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-2 h-2 bg-[var(--japanese-silver)] rounded-full mt-2 flex-shrink-0" />
+                  </p>
+                  <p className="text-sm">
                     Built role-based dashboards for Super Admin, Company Admin, and Staff users with interactive analytics visualizations
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-2 h-2 bg-[var(--japanese-silver)] rounded-full mt-2 flex-shrink-0" />
+                  </p>
+                  <p className="text-sm">
                     Integrated Unreal Engine 5 telemetry workflows with backend systems for secure session tracking
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-2 h-2 bg-[var(--japanese-silver)] rounded-full mt-2 flex-shrink-0" />
+                  </p>
+                  <p className="text-sm">
                     Managed deployment infrastructure using Supabase, Railway, and Vercel
-                  </li>
-                </ul>
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-24 px-8 relative" ref={projectsRef}>
-        <div className="max-w-6xl mx-auto">
+      {/* Projects Section - Case study previews */}
+      <section id="projects" className="py-32 px-8 relative" ref={projectsRef}>
+        {/* Structural line element */}
+        <div className="structural-line-horizontal top-0" />
+        
+        <div className="max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="mb-12"
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-[var(--japanese-cream)]">
-              Projects
+            <h2 className="heading-section text-4xl md:text-5xl mb-12 text-[var(--cream)]">
+              Selected Work
             </h2>
-            <div className="w-24 h-1 bg-[var(--japanese-silver)]" />
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-0">
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 1, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
                 onClick={() => setSelectedProject(project.id)}
-                className="japanese-border hover-lift p-8 bg-[var(--japanese-secondary)]/50 cursor-pointer hover:bg-[var(--japanese-secondary)]/80 transition-all duration-300 group"
+                className="case-study-preview cursor-pointer"
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 bg-[var(--japanese-silver)] text-white flex items-center justify-center font-bold text-xl hover-rotate">
-                    {project.id + 1}
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="text-xl font-medium text-[var(--cream)] mb-1">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs text-[var(--silver-muted)] uppercase tracking-wider">
+                      {project.role}
+                    </p>
                   </div>
-                  <ExternalLink className="w-5 h-5 text-[var(--japanese-cream)] group-hover:text-[var(--japanese-silver)] transition-colors hover-scale" />
+                  <span className="text-xs text-[var(--silver-muted)]">
+                    {project.period}
+                  </span>
                 </div>
                 
-                <h3 className="text-xl font-bold text-[var(--japanese-cream)] mb-2 group-hover:text-[var(--japanese-silver)] transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-[var(--japanese-silver)] mb-3">{project.role}</p>
-                <p className="text-[var(--japanese-cream)] text-sm leading-relaxed mb-4 line-clamp-2">
+                <p className="text-sm text-[var(--silver-muted)] leading-relaxed mb-4 line-clamp-1">
                   {project.solution}
                 </p>
                 
-                <div className="flex items-center gap-2 text-xs text-[var(--japanese-cream)] mb-4">
-                  <Calendar className="w-3 h-3" />
-                  {project.period}
-                </div>
-                
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.slice(0, 3).map((tech) => (
-                    <span key={tech} className="px-3 py-1 bg-[var(--japanese-silver)]/10 text-[var(--japanese-silver)] text-xs rounded hover-scale cursor-pointer">
-                      {tech}
-                    </span>
-                  ))}
-                  {project.tech.length > 3 && (
-                    <span className="px-3 py-1 bg-[var(--japanese-cream)]/10 text-[var(--japanese-cream)] text-xs rounded">
-                      +{project.tech.length - 3}
-                    </span>
-                  )}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-[var(--indigo)] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    View Case Study
+                  </span>
+                  <ArrowRight className="w-3 h-3 text-[var(--indigo)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
               </motion.div>
             ))}
@@ -384,52 +366,76 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Project Modal */}
+      {/* Project Modal - Editorial layout */}
       <AnimatePresence>
         {selectedProject !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-[var(--japanese-charcoal)]/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-[var(--charcoal)]/95 backdrop-blur-sm"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
+              initial={{ scale: 0.98, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
+              exit={{ scale: 0.98, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="max-w-3xl w-full japanese-border p-12 bg-[var(--japanese-secondary)] shadow-2xl"
+              className="max-w-3xl w-full minimal-border p-16 bg-[var(--charcoal)]"
             >
               {(() => {
                 const project = projects.find(p => p.id === selectedProject);
                 if (!project) return null;
                 return (
                   <>
-                    <div className="w-16 h-16 bg-[var(--japanese-silver)] text-white flex items-center justify-center font-bold text-2xl mb-6">
-                      {project.id + 1}
+                    <div className="mb-12">
+                      <p className="text-xs font-medium tracking-widest uppercase text-[var(--silver-muted)] mb-2">
+                        {project.role}
+                      </p>
+                      <h3 className="heading-section text-3xl md:text-4xl text-[var(--cream)] mb-4">
+                        {project.title}
+                      </h3>
+                      <p className="text-sm text-[var(--silver-muted)]">
+                        {project.period}
+                      </p>
                     </div>
-                    <h3 className="text-3xl font-bold text-[var(--japanese-cream)] mb-2">{project.title}</h3>
-                    <p className="text-[var(--japanese-silver)] mb-6">{project.role}</p>
                     
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="font-semibold mb-2 text-sm uppercase tracking-wider text-[var(--japanese-cream)]">Problem</h4>
-                        <p className="text-[var(--japanese-cream)]">{project.problem}</p>
+                    <div className="space-y-8">
+                      <div className="border-t border-[var(--silver-subtle)] pt-8">
+                        <h4 className="text-xs font-medium tracking-widest uppercase text-[var(--silver)] mb-4">
+                          Problem
+                        </h4>
+                        <p className="text-[var(--silver-muted)] leading-relaxed">
+                          {project.problem}
+                        </p>
                       </div>
-                      <div>
-                        <h4 className="font-semibold mb-2 text-sm uppercase tracking-wider text-[var(--japanese-cream)]">Solution</h4>
-                        <p className="text-[var(--japanese-cream)]">{project.solution}</p>
+                      
+                      <div className="border-t border-[var(--silver-subtle)] pt-8">
+                        <h4 className="text-xs font-medium tracking-widest uppercase text-[var(--silver)] mb-4">
+                          Solution
+                        </h4>
+                        <p className="text-[var(--silver-muted)] leading-relaxed">
+                          {project.solution}
+                        </p>
                       </div>
-                      <div>
-                        <h4 className="font-semibold mb-2 text-sm uppercase tracking-wider text-[var(--japanese-cream)]">Impact</h4>
-                        <p className="text-[var(--japanese-cream)]">{project.impact}</p>
+                      
+                      <div className="border-t border-[var(--silver-subtle)] pt-8">
+                        <h4 className="text-xs font-medium tracking-widest uppercase text-[var(--silver)] mb-4">
+                          Impact
+                        </h4>
+                        <p className="text-[var(--silver-muted)] leading-relaxed">
+                          {project.impact}
+                        </p>
                       </div>
-                      <div>
-                        <h4 className="font-semibold mb-3 text-sm uppercase tracking-wider text-[var(--japanese-cream)]">Technologies</h4>
-                        <div className="flex flex-wrap gap-2">
+                      
+                      <div className="border-t border-[var(--silver-subtle)] pt-8">
+                        <h4 className="text-xs font-medium tracking-widest uppercase text-[var(--silver)] mb-4">
+                          Technologies
+                        </h4>
+                        <div className="flex flex-wrap gap-3">
                           {project.tech.map((tech) => (
-                            <span key={tech} className="px-4 py-2 bg-[var(--japanese-silver)]/10 text-[var(--japanese-silver)] text-sm rounded">
+                            <span key={tech} className="text-sm text-[var(--silver-muted)]">
                               {tech}
                             </span>
                           ))}
@@ -444,47 +450,50 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-24 px-8 bg-[var(--japanese-secondary)]/30 relative">
-        <div className="max-w-4xl mx-auto text-center">
+      {/* Contact Section - Minimal aesthetic */}
+      <section id="contact" className="py-32 px-8 relative">
+        {/* Structural line element */}
+        <div className="structural-line-horizontal top-0" />
+        
+        <div className="max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="japanese-border p-12 bg-[var(--japanese-secondary)]/50"
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-[var(--japanese-cream)]">
+            <h2 className="heading-section text-4xl md:text-5xl mb-12 text-[var(--cream)]">
               Contact
             </h2>
-            <p className="text-xl text-[var(--japanese-cream)] mb-12 max-w-2xl mx-auto">
-              I'm currently seeking opportunities in software engineering roles. Feel free to reach out!
+            
+            <p className="text-base text-[var(--silver-muted)] leading-relaxed mb-12 max-w-xl">
+              I'm currently seeking opportunities in software engineering roles. Feel free to reach out.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 mb-20">
               <motion.a
                 href="mailto:hazim7231@gmail.com"
-                className="px-10 py-4 bg-[var(--japanese-silver)] text-white font-medium tracking-wide hover:bg-[var(--japanese-silver)]/90 transition-colors flex items-center justify-center gap-2 hover-lift"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="button-minimal flex items-center justify-center gap-3"
+                whileHover={{ scale: 1.005 }}
+                whileTap={{ scale: 0.995 }}
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-3 h-3" />
                 hazim7231@gmail.com
               </motion.a>
               <motion.a
                 href="https://linkedin.com/in/hazimsyukur"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-10 py-4 border-2 border-[var(--japanese-cream)] text-[var(--japanese-cream)] font-medium tracking-wide hover:bg-[var(--japanese-cream)] hover:text-[var(--japanese-charcoal)] transition-colors flex items-center justify-center hover-lift"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="button-minimal"
+                whileHover={{ scale: 1.005 }}
+                whileTap={{ scale: 0.995 }}
               >
                 LinkedIn
               </motion.a>
             </div>
 
-            <div className="pt-8 border-t border-[var(--japanese-silver)]/30">
-              <p className="text-sm text-[var(--japanese-cream)]">
+            <div className="pt-12 border-t border-[var(--silver-subtle)]">
+              <p className="text-xs text-[var(--silver-muted)] uppercase tracking-wider">
                 © 2026 Muhammad Hazim Syukur
               </p>
             </div>

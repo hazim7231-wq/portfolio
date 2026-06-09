@@ -3,27 +3,32 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #e0e0e0;
-  --primary: #c0c0c0;
-  --primary-foreground: #0a0a0a;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #e0e0e0;
-  --accent: #2a2a2a;
-  --accent-foreground: #e0e0e0;
-  --muted: #1a1a1a;
-  --muted-foreground: #b0b0b0;
-  --card: #1a1a1a;
-  --card-foreground: #e0e0e0;
-  --border: #3a3a3a;
-  --input: #3a3a3a;
-  --ring: #c0c0c0;
+  /* Core Colors - Premium Japanese Palette */
+  --background: #0B0B0D;
+  --foreground: #C0C0C0;
+  --primary: #C0C0C0;
+  --primary-foreground: #0B0B0D;
+  --secondary: #0B0B0D;
+  --secondary-foreground: #C0C0C0;
+  --accent: #264653;
+  --accent-foreground: #C0C0C0;
+  --muted: #0B0B0D;
+  --muted-foreground: #8a8a8a;
+  --card: #0B0B0D;
+  --card-foreground: #C0C0C0;
+  --border: #1a1a1a;
+  --input: #1a1a1a;
+  --ring: #264653;
   --radius: 0rem;
-  --japanese-indigo: #4a4a4a;
-  --japanese-silver: #c0c0c0;
-  --japanese-gray: #808080;
-  --japanese-charcoal: #0a0a0a;
-  --japanese-cream: #e0e0e0;
+  
+  /* Premium Japanese palette - 90% Black, 8% Silver, 2% Indigo */
+  --charcoal: #0B0B0D;
+  --silver: #C0C0C0;
+  --silver-muted: #8a8a8a;
+  --silver-subtle: #2a2a2a;
+  --cream: #C0C0C0;
+  --indigo: #264653;
+  --indigo-subtle: #1a3a45;
 }
 
 * {
@@ -37,70 +42,185 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.8;
+  background: var(--charcoal);
+  color: var(--cream);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', sans-serif;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.japanese-pattern {
-  background-image: 
-    linear-gradient(90deg, transparent 49%, rgba(192, 192, 192, 0.1) 50%, transparent 51%),
-    linear-gradient(transparent 49%, rgba(192, 192, 192, 0.1) 50%, transparent 51%);
-  background-size: 40px 40px;
+/* Subtle washi paper-inspired grain texture */
+.noise-texture {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-.japanese-border {
-  border: 1px solid var(--japanese-silver);
-  position: relative;
-  transition: all 0.3s ease;
+/* Minimal border with subtle hover */
+.minimal-border {
+  border: 1px solid var(--silver-subtle);
+  transition: border-color 0.4s ease;
 }
 
-.japanese-border::before {
-  content: '';
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  right: 4px;
-  bottom: 4px;
-  border: 1px solid var(--japanese-silver);
-  opacity: 0.5;
-  transition: all 0.3s ease;
+.minimal-border:hover {
+  border-color: var(--silver-muted);
 }
 
-.japanese-border:hover {
-  border-color: var(--japanese-silver);
-  box-shadow: 0 0 20px rgba(192, 192, 192, 0.2);
-}
-
-.japanese-border:hover::before {
-  opacity: 0.8;
-  border-color: var(--japanese-silver);
-}
-
+/* Subtle hover lift - extremely minimal */
 .hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
 .hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(192, 192, 192, 0.15);
+  transform: translateY(-2px);
 }
 
+/* Subtle scale */
 .hover-scale {
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
 .hover-scale:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
-.hover-rotate {
-  transition: transform 0.6s ease;
+/* Navigation underline animation with indigo active state */
+.nav-link {
+  position: relative;
+  transition: color 0.5s ease;
 }
 
-.hover-rotate:hover {
-  transform: rotate(360deg);
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--indigo);
+  transition: width 0.5s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  color: var(--indigo);
+}
+
+/* Editorial divider */
+.editorial-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--silver-subtle);
+  margin: 0 auto;
+}
+
+/* Case study preview styling with indigo accent on hover */
+.case-study-preview {
+  border-top: 1px solid var(--silver-subtle);
+  padding: 3rem 0;
+  transition: all 0.5s ease;
+}
+
+.case-study-preview:hover {
+  border-top-color: var(--indigo);
+  padding-left: 0.5rem;
+}
+
+.case-study-preview:hover h3,
+.case-study-preview:hover .text-xs {
+  color: var(--indigo);
+}
+
+/* Typography hierarchy */
+.heading-display {
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.heading-section {
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.text-body {
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.7;
+}
+
+.text-muted {
+  color: var(--silver-muted);
+}
+
+/* Minimal button with indigo accent */
+.button-minimal {
+  border: 1px solid var(--silver-subtle);
+  padding: 1rem 2rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.5s ease;
+  background: transparent;
+  color: var(--cream);
+}
+
+.button-minimal:hover {
+  border-color: var(--indigo);
+  color: var(--indigo);
+}
+
+/* Vertical lattice pattern - inspired by kumiko woodwork */
+.lattice-pattern {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: 
+    linear-gradient(to right, var(--silver-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--silver-subtle) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Structural line elements - inspired by shoji screens */
+.structural-line-vertical {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--silver-subtle) 10%, var(--silver-subtle) 90%, transparent);
+  opacity: 0.5;
+}
+
+.structural-line-horizontal {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--silver-subtle) 10%, var(--silver-subtle) 90%, transparent);
+  opacity: 0.5;
+}
+
+/* Indigo accent line */
+.indigo-accent {
+  width: 1px;
+  height: 60px;
+  background: var(--indigo);
+  opacity: 0.8;
 }
