@@ -19,7 +19,7 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'projects', 'contact'];
+      const sections = ['hero', 'about', 'experience', 'projects', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -40,7 +40,16 @@ export default function Home() {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
+    // Map navigation items to actual section IDs
+    const sectionMap: { [key: string]: string } = {
+      'work': 'projects',
+      'about': 'about',
+      'contact': 'contact',
+      'hero': 'hero'
+    };
+    
+    const actualSectionId = sectionMap[sectionId] || sectionId;
+    const element = document.getElementById(actualSectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -91,7 +100,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[var(--charcoal)]">
-      {/* Subtle noise texture */}
+      {/* Background grid pattern */}
+      <div className="background-grid" />
       <div className="noise-texture" />
       {/* Scroll Progress Bar - Minimal */}
       <motion.div
@@ -119,12 +129,12 @@ export default function Home() {
             林
           </motion.button>
           <div className="flex items-center gap-16">
-            {['Work', 'About', 'Contact'].map((item) => (
+            {['About', 'Work', 'Contact'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item.toLowerCase())}
                 className={`text-xs font-medium tracking-widest uppercase transition-colors nav-link ${
-                  activeSection === item.toLowerCase() 
+                  (item === 'Work' && activeSection === 'projects') || activeSection === item.toLowerCase()
                     ? 'text-[var(--indigo)] active' 
                     : 'text-[var(--cream)] hover:text-[var(--indigo)]'
                 }`}
@@ -137,7 +147,7 @@ export default function Home() {
       </motion.header>
 
       {/* Hero Section - Minimal with increased whitespace */}
-      <section id="hero" className="min-h-screen flex items-center justify-center px-8 pt-32 relative">
+      <section id="hero" className="min-h-screen flex items-center justify-center px-8 pt-32 pb-20 relative">
         {/* Vertical lattice pattern - kumiko-inspired */}
         <div className="lattice-pattern" />
         
@@ -212,6 +222,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
+            <div className="section-divider" />
             <h2 className="heading-section text-4xl md:text-5xl mb-12 text-[var(--cream)]">
               About
             </h2>
@@ -246,7 +257,8 @@ export default function Home() {
                 <Award className="w-5 h-5 text-[var(--silver)] mx-auto mb-3" />
                 <p className="text-xs font-medium tracking-widest uppercase text-[var(--cream)] mb-1">Achievement</p>
                 <p className="text-sm text-[var(--silver-muted)]">Dean's List</p>
-                <p className="text-sm text-[var(--silver-muted)]">6/6 Semesters</p>
+                <p className="text-sm text-[var(--silver-muted)]">7/7 Semesters</p>
+                <p className="text-sm text-[var(--silver-muted)]">ANC Award</p>
               </div>
             </div>
           </motion.div>
@@ -265,6 +277,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
+            <div className="section-divider" />
             <h2 className="heading-section text-4xl md:text-5xl mb-12 text-[var(--cream)]">
               Experience
             </h2>
@@ -320,6 +333,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
+            <div className="section-divider" />
             <h2 className="heading-section text-4xl md:text-5xl mb-12 text-[var(--cream)]">
               Selected Work
             </h2>
@@ -334,18 +348,18 @@ export default function Home() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 1, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
                 onClick={() => setSelectedProject(project.id)}
-                className="case-study-preview cursor-pointer"
+                className="case-study-preview cursor-pointer group"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="text-xl font-medium text-[var(--cream)] mb-1">
+                    <h3 className="text-xl font-medium text-[var(--cream)] mb-1 transition-colors duration-500 group-hover:text-[var(--indigo)]">
                       {project.title}
                     </h3>
-                    <p className="text-xs text-[var(--silver-muted)] uppercase tracking-wider">
+                    <p className="label-uppercase">
                       {project.role}
                     </p>
                   </div>
-                  <span className="text-xs text-[var(--silver-muted)]">
+                  <span className="text-xs text-[var(--silver-muted)] whitespace-nowrap ml-4">
                     {project.period}
                   </span>
                 </div>
@@ -354,11 +368,11 @@ export default function Home() {
                   {project.solution}
                 </p>
                 
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-[var(--indigo)] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <span className="text-xs text-[var(--indigo)] uppercase tracking-wider">
                     View Case Study
                   </span>
-                  <ArrowRight className="w-3 h-3 text-[var(--indigo)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <ArrowRight className="w-3 h-3 text-[var(--indigo)]" />
                 </div>
               </motion.div>
             ))}
@@ -373,7 +387,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-[var(--charcoal)]/95 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/50 backdrop-blur-sm"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
@@ -403,7 +417,7 @@ export default function Home() {
                     
                     <div className="space-y-8">
                       <div className="border-t border-[var(--silver-subtle)] pt-8">
-                        <h4 className="text-xs font-medium tracking-widest uppercase text-[var(--silver)] mb-4">
+                        <h4 className="label-uppercase mb-4">
                           Problem
                         </h4>
                         <p className="text-[var(--silver-muted)] leading-relaxed">
@@ -412,7 +426,7 @@ export default function Home() {
                       </div>
                       
                       <div className="border-t border-[var(--silver-subtle)] pt-8">
-                        <h4 className="text-xs font-medium tracking-widest uppercase text-[var(--silver)] mb-4">
+                        <h4 className="label-uppercase mb-4">
                           Solution
                         </h4>
                         <p className="text-[var(--silver-muted)] leading-relaxed">
@@ -421,7 +435,7 @@ export default function Home() {
                       </div>
                       
                       <div className="border-t border-[var(--silver-subtle)] pt-8">
-                        <h4 className="text-xs font-medium tracking-widest uppercase text-[var(--silver)] mb-4">
+                        <h4 className="label-uppercase mb-4">
                           Impact
                         </h4>
                         <p className="text-[var(--silver-muted)] leading-relaxed">
@@ -430,12 +444,15 @@ export default function Home() {
                       </div>
                       
                       <div className="border-t border-[var(--silver-subtle)] pt-8">
-                        <h4 className="text-xs font-medium tracking-widest uppercase text-[var(--silver)] mb-4">
+                        <h4 className="label-uppercase mb-4">
                           Technologies
                         </h4>
                         <div className="flex flex-wrap gap-3">
                           {project.tech.map((tech) => (
-                            <span key={tech} className="text-sm text-[var(--silver-muted)]">
+                            <span 
+                              key={tech} 
+                              className="tech-tag"
+                            >
                               {tech}
                             </span>
                           ))}
@@ -462,6 +479,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
+            <div className="section-divider" />
             <h2 className="heading-section text-4xl md:text-5xl mb-12 text-[var(--cream)]">
               Contact
             </h2>
