@@ -1,26 +1,106 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #e0e0e0;
+  --primary: #c0c0c0;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #e0e0e0;
+  --accent: #2a2a2a;
+  --accent-foreground: #e0e0e0;
+  --muted: #1a1a1a;
+  --muted-foreground: #b0b0b0;
+  --card: #1a1a1a;
+  --card-foreground: #e0e0e0;
+  --border: #3a3a3a;
+  --input: #3a3a3a;
+  --ring: #c0c0c0;
+  --radius: 0rem;
+  --japanese-indigo: #4a4a4a;
+  --japanese-silver: #c0c0c0;
+  --japanese-gray: #808080;
+  --japanese-charcoal: #0a0a0a;
+  --japanese-cream: #e0e0e0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.japanese-pattern {
+  background-image: 
+    linear-gradient(90deg, transparent 49%, rgba(192, 192, 192, 0.1) 50%, transparent 51%),
+    linear-gradient(transparent 49%, rgba(192, 192, 192, 0.1) 50%, transparent 51%);
+  background-size: 40px 40px;
+}
+
+.japanese-border {
+  border: 1px solid var(--japanese-silver);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.japanese-border::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 1px solid var(--japanese-silver);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.japanese-border:hover {
+  border-color: var(--japanese-silver);
+  box-shadow: 0 0 20px rgba(192, 192, 192, 0.2);
+}
+
+.japanese-border:hover::before {
+  opacity: 0.8;
+  border-color: var(--japanese-silver);
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(192, 192, 192, 0.15);
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-rotate {
+  transition: transform 0.6s ease;
+}
+
+.hover-rotate:hover {
+  transform: rotate(360deg);
 }
